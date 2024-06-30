@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            padding: 20px;
+            background-color: #f2f2f2;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .breadcrumb {
+            margin-bottom: 10px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .breadcrumb a {
+            color: #555;
+            text-decoration: none;
+            margin-right: 5px;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .breadcrumb span {
+            color: #FF4500;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        form {
+            text-align: left;
+            position: relative;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        form input[type="text"],
+        form input[type="email"],
+        form select {
+            width: calc(100% - 32px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #e9ecef;
+        }
+
+        form input[readonly] {
+            background-color: #e9ecef;
+            cursor: not-allowed;
+        }
+
+        form button[type="submit"] {
+            background-color: #FF4500;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        #message {
+            margin-top: 10px;
+            color: green;
+        }
+
+        .left-corner {
+            position: absolute;
+            width: 180px; /* Adjust width */
+            height: 80px; /* Adjust height */
+            border-radius: 10px;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .left-corner img {
+            width: 160px; /* Adjust width */
+            border-radius: 10px; /* Smaller radius for rounded corners */
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .edit-icon {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%) rotate(135deg);
+            cursor: pointer;
+        }
+
+        .edit-icon::after {
+            content: '\270E';
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        .edit-icon:hover::after {
+            color: #FF4500; /* Change color on hover */
+        }
+
+        .field-container {
+            position: relative;
+        }
+
+        .field-container .edit-icon {
+            position: absolute;
+            top: 60%;
+            right: 15px;
+            transform: translateY(-50%) rotate(90deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="left-corner">
+        <img src="static/logo.png" alt="ParkMyCar Logo">
+    </div>
+    <div class="breadcrumb">
+        <a href="{{ url_for('home1') }}">Home</a> &gt; <span>Account Details</span>
+    </div>
+
+    <div class="container">
+        <h1>Account Details</h1>
+        
+        <form id="updateForm">
+            <div class="field-container">
+                <label for="firstname">First Name:</label>
+                <input type="text" id="firstname" name="firstname" value="{{ provider.FirstName }}" required readonly>
+                <div class="edit-icon"></div>
+            </div><br>
+
+            <div class="field-container">
+                <label for="lastname">Last Name:</label>
+                <input type="text" id="lastname" name="lastname" value="{{ provider.LastName }}" required readonly>
+                <div class="edit-icon"></div>
+            </div><br>
+
+            <div class="field-container">
+                <label for="phonenumber">Phone Number:</label>
+                <input type="text" id="phonenumber" name="phonenumber" value="{{ provider.PhoneNumber }}" required readonly>
+                <div class="edit-icon"></div>
+            </div><br>
+
+            <div class="field-container">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" value="{{ provider.Email }}" required readonly>
+                <div class="edit-icon"></div>
+            </div><br>
+
+            <div class="field-container">
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address" value="{{ provider.Address }}" required readonly>
+                <div class="edit-icon"></div>
+            </div><br>
+
+            <div class="field-container">
+                <label for="cost_per_hour">Cost Per Hour:</label>
+                <input type="text" id="cost_per_hour" name="cost_per_hour" value="{{ provider.CostPerHour }}" readonly>
+                <div class="edit-icon"></div>
+            </div><br>
+
+            <div class="field-container">
+                <label for="vehicle_type">Vehicle Type:</label>
+                <select id="vehicle_type" name="vehicle_type" required>
+                    <option value="2 wheeler" {% if provider.VehicleType == '2 wheeler' %} selected {% endif %}>2 wheeler</option>
+                    <option value="4 wheeler" {% if provider.VehicleType == '4 wheeler' %} selected {% endif %}>4 wheeler</option>
+                </select>
+                <div class="edit-icon"></div>
+            </div><br>
+
+            <button type="submit">Update Details</button>
+            <p id="message"></p>
+        </form>
+
+        <div id="message"></div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.edit-icon').forEach(icon => {
+            icon.addEventListener('click', function() {
+                const inputField = this.previousElementSibling;
+                inputField.removeAttribute('readonly');
+                inputField.focus();
+                inputField.style.backgroundColor = 'white'; // Change background color to indicate editable
+            });
+        });
+
+        document.getElementById('updateForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(this);
+
+            fetch('/update_provider', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('message').textContent = data.message;
+                // Make fields readonly again after update
+                document.querySelectorAll('input, select').forEach(input => {
+                    input.setAttribute('readonly', 'readonly');
+                    input.style.backgroundColor = '#e9ecef';
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>

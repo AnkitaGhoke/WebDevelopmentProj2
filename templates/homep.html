@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ParkMyCar - Maximize Parking Revenue</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .main {
+            position: relative;
+            color: white;
+        }
+
+        .main img {
+            width: 100%;
+            height: auto;
+            opacity: 0.4;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: absolute;
+            width: 100%;
+            padding: 10px 20px;
+            z-index: 1000;
+            top: 0;
+        }
+
+        .top-bar img {
+            width: 160px;
+            border-radius: 10px; /* Add this line for rounded edges */
+        }
+
+        .top-bar .right-corner {
+            display: flex;
+            gap: 10px; /* Add gap between the buttons */
+            margin-right: 30px; /* Shift the buttons slightly to the left */
+        }
+
+        .main-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: black; /* Change the color to black */
+        }
+
+        .main-content h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+
+        .main-content p {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+
+        .button {
+            background-color: #FF4500;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            font-size: 1.2em;
+            border-radius: 5px;
+            margin: 0 10px; /* Adjust the spacing between buttons */
+        }
+
+        .buttons {
+            margin-top: 20px; /* Adjust the top margin to separate from the text */
+        }
+
+        .buttons .button {
+            margin: 0 10px; /* Adjust the spacing between buttons */
+        }
+
+        .location {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+        }
+
+        .location h2 {
+            font-size: 1.5em;
+            margin: 0;
+        }
+
+        .location a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .footer {
+            background-color: #000;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            width: 100%;
+            bottom: 0;
+        }
+
+        .footer .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer .left-corner {
+            margin-left: 50px; /* Shift the logo slightly to the right */
+            margin-top: 50px;
+        }
+
+        .footer .left-corner img {
+            width: 150px; /* Adjust the width of the logo */
+        }
+
+        .footer .center-content {
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .footer .right-corner {
+            text-align: left;
+            margin-right: 20px;
+            /* Shift the right corner content slightly to the right */
+            width: 300px; /* Set a fixed width to ensure alignment */
+            margin-top: 50px;
+        }
+
+        .footer .right-corner p, .footer .right-corner h3 {
+            margin: 0;
+            padding: 2px 0;
+        }
+        
+
+    </style>
+</head>
+<body>
+    <main class="main">
+        <img src="static/background.png" alt="Parking Lot">
+        <div class="top-bar">
+    <img src="static/logo.png" alt="ParkMyCar Logo" style="opacity: 1;">
+    <div class="right-corner">
+        <a href="{{url_for('Login') }}"class="button">Login</a>
+    </div>
+</div>
+
+        <div class="main-content">
+            <h1>Monetize your parking space with ease!</h1>
+            <p>If you own a parking space, let ParkMyCar help you turn it into a source of income. List your space with us and start earning from your unused parking area.</p>
+            
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="left-corner">
+                <img src="static/logo.png" alt="ParkMyCar Logo">
+            </div>
+            <div class="right-corner">
+                <h3>Contact Us</h3>
+                <p>Email - support@parkmycar.com</p>
+                <p>Phone - 1800-123-456</p>
+                <p>Address - 4 Kalidas Road, Dehradun, 248001</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 ParkMyCar. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const profilePhoto = document.getElementById('profile-photo');
+            const dropdownContent = document.getElementById('dropdown-content');
+
+            profilePhoto.addEventListener('click', function() {
+                dropdownContent.classList.toggle('show');
+            });
+
+            // Close the dropdown if the user clicks outside of it
+            window.onclick = function(event) {
+                if (!event.target.matches('.profile-photo')) {
+                    if (dropdownContent.classList.contains('show')) {
+                        dropdownContent.classList.remove('show');
+                    }
+                }
+            };
+        });
+
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            header.classList.toggle('hidden', window.scrollY > 0);
+        });
+    </script>
+</body>
+</html>

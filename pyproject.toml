@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "repl-nix-webdevelopmentproj2"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+packages = [{include = "repl_nix_webdevelopmentproj2"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+bcrypt = "^4.1.3"
+flask = "^3.0.3"
+geopy = "^2.4.1"
+googlemaps = "^4.10.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
