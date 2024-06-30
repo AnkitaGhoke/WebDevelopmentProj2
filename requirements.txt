@@ -4,4 +4,3 @@ gunicorn==22.0.0
 geopy
 datetime
 googlemaps
-sqlite3
