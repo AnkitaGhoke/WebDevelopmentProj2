@@ -1,3 +1,8 @@
 flask
 bcrypt
 gunicorn==22.0.0
+geopy
+datetime
+json
+googlemaps
+sqlite3
