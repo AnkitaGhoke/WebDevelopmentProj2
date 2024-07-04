@@ -32,21 +32,16 @@
             text-decoration: none;
             font-size: 1em;
             border-radius: 5px;
-            margin-right: 20px; /* Shift the button to the left */
+            margin-right: 20px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
         }
 
         .content {
             display: flex;
-            height: calc(80vh - 40px); /* Reduced height */
-            padding-top: 10px; /* Reduced padding */
-        }
-
-        .left-side {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #f9f9f9;
+            height: calc(80vh - 40px);
+            padding-top: 10px;
         }
 
         .right-side {
@@ -63,7 +58,7 @@
             text-align: center;
             position: relative;
             display: inline-block;
-            margin-top: 20px; /* Shift heading downwards */
+            margin-top: 20px;
         }
 
         .list-title::after {
@@ -117,7 +112,7 @@
     </style>
 </head>
 <body>
-    <a href="{{ url_for('home1') if is_logged_in else url_for('home') }}" class="button" style="position: absolute; top: 10px; right: 10px;">Home</a>
+    <a href="{{ url_for('home1') if is_logged_in else url_for('home') }}" class="button">Home</a>
     <div class="logo">
         <img src="static/logo.png" alt="ParkMyCar Logo">
     </div>
@@ -125,7 +120,7 @@
     <div class="content">
         <div class="right-side">
             <div class="list-title">Delist Property</div>
-            <form class="list-form" id="delistForm">
+            <form class="list-form" id="delistForm" method="POST">
                 <label for="property_id">Select Property to Delist</label>
                 <select id="property_id" name="property_id" required>
                     <option value="" disabled selected>Select Property</option>

@@ -237,20 +237,17 @@ def enlistproperty():
 
 @app.route('/delistproperty', methods=['GET', 'POST'])
 def delistproperty():
-    if 'phone_number' not in session:
-        return redirect(url_for('login'))  # Redirect to login if not logged in
-
-    phone_number = session['phone_number']
+    provider_id = session.get('provider_id')  # Assuming the user is logged in and phone_number is in session
     conn = get_db_connection()
     c = conn.cursor()
 
     if request.method == 'GET':
         # Fetch properties for the logged-in provider
         c.execute('''
-            SELECT id, Address, VehicleType
+            SELECT PhoneNumber, Address, VehicleType
             FROM Provider
-            WHERE PhoneNumber = ?
-        ''', (phone_number,))
+            WHERE id = ?
+        ''', (provider_id,))
         properties = c.fetchall()
         conn.close()
         return render_template('delistproperty.html', properties=properties, is_logged_in=True)
@@ -271,6 +268,7 @@ def delistproperty():
         except Exception as e:
             print(f"Error: {e}")
             return jsonify({'success': False, 'message': 'Failed to delist property!'}), 500
+
 
 
 @app.route('/mybookings')
